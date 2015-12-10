@@ -19,7 +19,7 @@ public:
 	}
 	bool Add(string name,string email)
 	{
-		INVARIANT0(size >= 0);
+		INVARIANT0(size >= 0&&size<=100);
 		for (int i = 0; i < size; i++)
 		{
 			if (names[i] == name)
@@ -31,11 +31,13 @@ public:
 		ENSURE0(names[size] == name && emails[size] == email);
 		size++;
 		ENSURE0(size > 0);
+		INVARIANT0(size <= 100);
 		return true;
 	}
 
 	void Remove(string name)
 	{
+		INVARIANT0(size <= 100);
 		// a simple example on removing array of numbers
 		// if the array is  {1,5,3,4,2,6,7,8,9,10}
 		// and its size is 10 elements
@@ -65,6 +67,7 @@ public:
 			ENSURE0(names[i] == names[i + 1]);
 			ENSURE0(emails[i] == emails[i + 1]);
 		}
+		INVARIANT0(size >= 0);
 	}
 	void printentries()
 	{
