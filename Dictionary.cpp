@@ -17,14 +17,21 @@ public:
 	{
 		size =0;
 	}
-	void Add(string name,string email)
+	bool Add(string name,string email)
 	{
 		INVARIANT0(size >= 0);
+		for (int i = 0; i < size; i++)
+		{
+			if (names[i] == name)
+				return false;
+			ENSURE0(names[i] != name);
+		}
 		names[size] = name;
 		emails[size] = email;
 		ENSURE0(names[size] == name && emails[size] == email);
 		size++;
 		ENSURE0(size > 0);
+		return true;
 	}
 
 	void Remove(string name)
@@ -76,6 +83,7 @@ void main()
 	Dictionary x;
 	x.Add("omar","omar@live.com");
 	x.Add("hassan","hassan@live.com");
+	x.Add("omar", "omar");
 	cout<<"Before Deleting Hassan"<<endl;
 	x.printentries();
 	x.Remove("hassan");
